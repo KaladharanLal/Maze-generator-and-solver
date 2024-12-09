@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze app</title>
+    <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body
+        {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background:#914545;
+            overflow: hidden;
+        }
+        #canvas
+        {
+            position: absolute;
+            top: 50vh;
+            left: 50vw;
+            height: 350px;
+            width: 350px;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ffffff;
+            background-color: #ffffff;
+        }
+        #slider
+        {
+            position: absolute;
+            top: 10px;
+        }
+        .box
+        {
+            position: relative;
+            height: 8%;
+            width: 8%;
+            background-color: aqua;
+            float: left;
+        }
+        .box-side
+        {
+            position: relative;
+            height: 8%;
+            width: 1%;
+            background-color: rgb(18, 42, 42);
+            float: left;
+        }
+        .box-top-bottom
+        {
+            position: relative;
+            height: 1%;
+            width: 8%;
+            background-color: rgb(18, 42, 42);
+            float: left;
+        }
+        .box-corner
+        {
+            position: relative;
+            height: 1%;
+            width: 1%;
+            background-color: rgb(18, 42, 42);
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <input id="slider" type="range" min="0" max="100" value="100" oninput="change(this.value)">
+    <div id="canvas">
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+        <div class="box">
+        </div>
+        <div class="box-side"></div>
+
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        <div class="box-top-bottom"></div>
+        <div class="box-corner"></div>
+        
+    </div>
+    <script>
+        division = 10;
+
+        // div = document.createElement('div')
+        // canvas.appendChild(div)
+        // div.classList.add("bub")
+        // div.id = `sb`
+        // shootBub = div
+        // shootBubPos[0] = window.innerWidth/2-35
+        // shootBubPos[1] = window.innerHeight - 100
+
+        change = (val) => {
+            document.getElementById("canvas").style.height = document.getElementById("canvas").style.width = `${21+329*val/100}px`
+        }
+    </script> 
+</body>
+</html>

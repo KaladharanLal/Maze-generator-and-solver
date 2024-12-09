@@ -82,6 +82,18 @@
             background-color: rgb(114, 71, 8);
             float: left;
         }
+        .invisible
+        {
+            background-color: rgb(148, 236, 236);
+        }
+        .start
+        {
+            background-color: rgb(0, 255, 140);
+        }
+        .end
+        {
+            background-color: rgb(255, 106, 0);
+        }
     </style>
 </head>
 <body>
@@ -89,9 +101,12 @@
     <input id="divi-slider" type="range" min="2" max="10" value="10" oninput="updateDivision(this.value)">
     <div id="canvas"></div>
     <script>
-        division = 10;
+        division = 10
+        maze = [[],[]]
+        start = {type: null, pos: [null, null]}
+        end = {type: null, pos: [null, null]}
         
-        generate = () => {
+        generateBoxes = () => {
             document.getElementById("canvas").replaceChildren()
 
             document.documentElement.style.setProperty("--cell", `${99/division-1}%`)
@@ -108,6 +123,7 @@
                     div = document.createElement('div')
                     canvas.appendChild(div)
                     div.classList.add("box-top-bottom")
+                    div.id = `t_${i}_${j}`
                 }
                 div = document.createElement('div')
                 canvas.appendChild(div)
@@ -117,14 +133,17 @@
                     div = document.createElement('div')
                     canvas.appendChild(div)
                     div.classList.add("box-side")
+                    div.id = `s_${i}_${j}`
                     
                     div = document.createElement('div')
                     canvas.appendChild(div)
                     div.classList.add("box")
+                    div.id = `b_${i}_${j}`
                 }
                 div = document.createElement('div')
                 canvas.appendChild(div)
                 div.classList.add("box-side")
+                div.id = `s_${i}_${division}`
             }
             for(j=0; j<division; j++)
             {
@@ -135,19 +154,80 @@
                 div = document.createElement('div')
                 canvas.appendChild(div)
                 div.classList.add("box-top-bottom")
+                div.id = `t_${division}_${j}`
             }
             div = document.createElement('div')
             canvas.appendChild(div)
             div.classList.add("box-corner")
         }
-        generate()
+        generateBoxes()
+
         change = (val) => {
             document.getElementById("canvas").style.height = document.getElementById("canvas").style.width = `${21+329*val/100}px`
         }
         updateDivision = (v) => {
             division = v
-            generate()
+            generateBoxes()
         }
+        
+        generateMaze = () => {
+            switch(Math.floor(Math.random()*3.999))
+            {
+                case 0:
+                    start.type = "t"
+                    start.pos = [0, Math.floor(Math.random()*(division-.001))]
+                    break;
+                case 1:
+                    start.type = "s"
+                    start.pos = [Math.floor(Math.random()*(division-.001)), division]
+                    break;
+                case 2:
+                    start.type = "t"
+                    start.pos = [division, Math.floor(Math.random()*(division-.001))]
+                    break;
+                case 3:
+                    start.type = "s"
+                    start.pos = [Math.floor(Math.random()*(division-.001)), 0]
+                    break;
+            }
+            console.log(start)
+            document.getElementById(`${start.type}_${start.pos[0]}_${start.pos[1]}`).classList.add("start")
+
+            end.type = start.type
+            end.pos[0] = start.pos[0]
+            end.pos[1] = start.pos[1]
+            while(end.type==start.type && end.pos[0] == start.pos[0] && end.pos[1] == start.pos[1])
+            {
+                switch(Math.floor(Math.random()*3.999))
+                {
+                    case 0:
+                        end.type = "t"
+                        end.pos = [0, Math.floor(Math.random()*(division-.001))]
+                        break;
+                    case 1:
+                        end.type = "s"
+                        end.pos = [Math.floor(Math.random()*(division-.001)), division]
+                        break;
+                    case 2:
+                        end.type = "t"
+                        end.pos = [division, Math.floor(Math.random()*(division-.001))]
+                        break;
+                    case 3:
+                        end.type = "s"
+                        end.pos = [Math.floor(Math.random()*(division-.001)), 0]
+                        break;
+                }
+                console.log(end)
+                document.getElementById(`${end.type}_${end.pos[0]}_${end.pos[1]}`).classList.add("end")
+            }
+
+            for(i=0; i<80; i++)
+            {
+                document.getElementById(`t_${1+Math.floor(Math.random()*(division-1.001))}_${Math.floor(Math.random()*(division-.001))}`).classList.add("invisible")
+                document.getElementById(`s_${Math.floor(Math.random()*(division-.001))}_${1+Math.floor(Math.random()*(division-1.001))}`).classList.add("invisible")
+            }
+        }
+        generateMaze()
     </script> 
 </body>
 </html>

@@ -26,7 +26,7 @@
             height: 100%;
             width: 100%;
             position: absolute;
-            background:#914545;
+            background:#457c91;
             overflow: hidden;
         }
         #canvas
@@ -40,17 +40,22 @@
             border: 1px solid #ffffff;
             background-color: #ffffff;
         }
-        #slider
+        #size-slider
         {
             position: absolute;
             top: 10px;
+        }
+        #divi-slider
+        {
+            position: absolute;
+            top: 40px;
         }
         .box
         {
             position: relative;
             height: var(--cell);
             width: var(--cell);
-            background-color: aqua;
+            background-color: rgb(148, 236, 236);
             float: left;
         }
         .box-side
@@ -74,18 +79,21 @@
             position: relative;
             height: var(--rim);
             width: var(--rim);
-            background-color: rgb(44, 130, 130);
+            background-color: rgb(114, 71, 8);
             float: left;
         }
     </style>
 </head>
 <body>
-    <input id="slider" type="range" min="0" max="100" value="100" oninput="change(this.value)">
+    <input id="size-slider" type="range" min="0" max="100" value="100" oninput="change(this.value)">
+    <input id="divi-slider" type="range" min="2" max="10" value="10" oninput="updateDivision(this.value)">
     <div id="canvas"></div>
     <script>
         division = 10;
         
         generate = () => {
+            document.getElementById("canvas").replaceChildren()
+
             document.documentElement.style.setProperty("--cell", `${99/division-1}%`)
             document.documentElement.style.setProperty("--rim", `1%`)
 
@@ -135,6 +143,10 @@
         generate()
         change = (val) => {
             document.getElementById("canvas").style.height = document.getElementById("canvas").style.width = `${21+329*val/100}px`
+        }
+        updateDivision = (v) => {
+            division = v
+            generate()
         }
     </script> 
 </body>
